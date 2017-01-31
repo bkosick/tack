@@ -1,0 +1,49 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: mongoose-demo
+spec:
+  replicas: 2
+  template:
+    metadata:
+      labels:
+        run: mongoose-demo
+    spec:
+      containers:
+      - name: mongoose-demo
+        image: bkosickorg/node-express-mongoose-demo
+        ports:
+        - containerPort: 3001
+        env:
+          - name: NODE_ENV
+            value: development
+          - name: PORT
+            value: '3001'
+          - name: MONGOHQ_URL
+            value: MONGOHQ_URL
+          - name: GITHUB_CLIENTID
+            value: ID
+          - name: GITHUB_SECRET
+            value: SECRET
+          - name: TWITTER_CLIENTID
+            value: ID
+          - name: TWITTER_SECRET
+            value: SECRET
+          - name: FACEBOOK_CLIENTID
+            value: ID
+          - name: FACEBOOK_SECRET
+            value: SECRET
+          - name: LINKEDIN_CLIENTID
+            value: ID
+          - name: LINKEDIN_SECRET
+            value: SECRET
+          - name: GOOGLE_CLIENTID
+            value: ID
+          - name: GOOGLE_SECRET
+            value: SECRET
+          - name: IMAGER_S3_KEY
+            value: AWS_S3_KEY
+          - name: IMAGER_S3_SECRET
+            value: AWS_S3_SECRET
+          - name: IMAGER_S3_BUCKET
+            value: IMAGER_S3_BUCKET

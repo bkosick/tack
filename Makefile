@@ -62,6 +62,12 @@ all: prereqs create-keypair ssl init apply
 	@$(MAKE) .addons
 	@$(MAKE) create-addons
 	@$(MAKE) create-busybox
+	@$(MAKE) create-mongo-svc
+	@$(MAKE) create-mongo
+	@$(MAKE) create-mongoose-demo-svc
+	@$(MAKE) create-mongoose-demo
+	@$(MAKE) create-nginx-svc
+	@$(MAKE) create-nginx
 	kubectl get no
 	@echo "${BLUE}❤ worker nodes may take several minutes to come online ${NC}"
 	@$(MAKE) instances
@@ -76,6 +82,9 @@ all: prereqs create-keypair ssl init apply
 	@echo "---"
 	@echo "Status summaries:"
 	@echo "% make status"
+	@echo "---"
+	@echo "Connect to Kubernetes Dashboard:"
+	@echo "% make dashboard"
 
 .cfssl: ; ./scripts/init-cfssl ${DIR_SSL} ${AWS_REGION} ${INTERNAL_TLD} ${K8S_SERVICE_IP}
 
@@ -98,6 +107,36 @@ create-busybox:
 	@echo "${BLUE}❤ create busybox test pod ${NC}"
 	kubectl create -f test/pods/busybox.yml
 	@echo "${GREEN}✓ create busybox test pod - success ${NC}\n"
+
+create-mongo-svc:
+	@echo "${BLUE}❤ create mongo service ${NC}"
+	kubectl create -f test/svc/mongo-svc.yaml
+	@echo "${GREEN}✓ create mongoose-svc - success ${NC}\n"
+
+create-mongo:
+	@echo "${BLUE}❤ create mongo pod ${NC}"
+	kubectl create -f test/pods/mongo.yaml
+	@echo "${GREEN}✓ create mongo pod - success ${NC}\n"
+
+create-mongoose-demo-svc:
+	@echo "${BLUE}❤ create mongoose demo service ${NC}"
+	kubectl create -f test/svc/mongoose-demo-svc.yaml
+	@echo "${GREEN}✓ create mongoose-demo-svc - success ${NC}\n"
+
+create-mongoose-demo:
+	@echo "${BLUE}❤ create mongoose demo pod ${NC}"
+	kubectl create -f test/pods/mongoose-demo.yaml
+	@echo "${GREEN}✓ create mongoose-demo pod - success ${NC}\n"
+
+create-nginx-svc:
+	@echo "${BLUE}❤ create nginx service ${NC}"
+	kubectl create -f test/svc/nginx-svc.yaml
+	@echo "${GREEN}✓ create nginx service - success ${NC}\n"
+
+create-nginx:
+	@echo "${BLUE}❤ create nginx pod ${NC}"
+	kubectl create -f test/pods/nginx.yaml
+	@echo "${GREEN}✓ create nginx pod - success ${NC}\n"
 
 ## start proxy and open kubernetes dashboard
 dashboard: ; @./scripts/dashboard

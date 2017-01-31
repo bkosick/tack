@@ -14,10 +14,37 @@ The default configuration includes Kubernetes
 [add-ons](https://github.com/kubernetes/kubernetes/tree/master/cluster/addons):
 DNS, Dashboard and UI.
 
+The default will also deploy the mongo, node-express-mongoose-demo and nginx pods and services.
+(Unfortunately, though deployment works, I'm still working on connecting everything together#)
+
 ## tl;dr
 ```bash
 # prereqs
 $ brew update && brew install awscli cfssl jq kubernetes-cli terraform
+
+# On Linux
+# On CentOS/Fedora 
+# install golang 
+$ yum install -y epel-release
+$ yum install -y golang jq 
+
+# Install awscli
+$ pip install awscli --user --upgrade
+
+# Add GOPATH to your PATH in ~/.bash_profile ie: PATH=$HOME/.local/bin:$HOME/bin:$GOPATH/bin:$PATH" 
+$ echo "export GOPATH=$HOME/work" >> ~/.bashrc && mkdir -p ~/work/bin && source ~/.bash_profile
+
+# Install CFSSL
+$ go get -u github.com/cloudflare/cfssl/cmd/cfssl
+
+# Install Terraform
+$ mkdir ~/bin
+$ wget https://releases.hashicorp.com/terraform/0.8.5/terraform_0.8.5_linux_amd64.zip && cd ~/bin && unzip ../terraform_0.8.5_linux_amd64.zip
+
+# Install kubecli
+$ curl -LO https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl
+$ chmod +x ./kubectl
+$ mv ./kubectl ~/bin
 
 # build artifacts and deploy cluster
 $ make all
