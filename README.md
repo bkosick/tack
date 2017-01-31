@@ -46,6 +46,8 @@ $ curl -LO https://storage.googleapis.com/kubernetes-release/release/$(curl -s h
 $ chmod +x ./kubectl
 $ mv ./kubectl ~/bin
 
+# Edit the test/pods/*.yaml files for your ENV settings
+
 # build artifacts and deploy cluster
 $ make all
 
